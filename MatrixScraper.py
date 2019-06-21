@@ -19,12 +19,12 @@ def cardScraper():
         del cardDict[entry]
     return cardDict
             
-pt3Removal = ['References', 'None']
+pt3Removal = ['references']
 def pt3Scraper():
     pt3Dict = {}
     for tag in soup.find_all(class_='pt-3'):
-       strings = tag.string
-       print(strings)
-
-
-print(pt3Scraper())
+        if tag['id'] not in pt3Removal:
+            print(tag.next_sibling)
+            break
+print(soup.prettify())
+#print(pt3Scraper())
