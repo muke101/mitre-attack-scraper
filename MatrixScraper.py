@@ -2,16 +2,29 @@ from bs4 import BeautifulSoup
 import re
 
 page = open('T1028','rb')
-
+#insert requesting here
+soup = BeautifulSoup(page, 'html.parser')       
 classes = ['card', 'col-md4 description-body']
 
 
-def pageScraper(url):
-    #insert requesting here
-    soup = BeautifulSoup(url, 'html.parser')       
-    for className in classes:
-        for tag in soup.find_all(class_='card-data'):
-                print([i.get_text() for i in tag.children])
-#    for tag in soup.find_all(class_='pt-3'): #this class in unique so iterating seperately in a less 'modular' way
+cardRemoval = ['Version']
+def cardScraper():
+    cardDict = {}
+    for tag in soup.find_all(class_='card-data'):
+        strings = tag.strings
+        key = next(strings) #TODO: stirp off random hex's
+        if key != ' ': 
+            cardDict[key] = [i for i in strings][0].strip(' :') 
+    for entry in cardRemoval:
+        del cardDict[entry]
+    return cardDict
             
-pageScraper(page)
+pt3Removal = ['References', 'None']
+def pt3Scraper():
+    pt3Dict = {}
+    for tag in soup.find_all(class_='pt-3'):
+       strings = tag.string
+       print(strings)
+
+
+print(pt3Scraper())
