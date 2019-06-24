@@ -6,8 +6,8 @@ import re
 
 class pageScraper:
     def __init__(self, page):
-        page = requests.get(page)
-        self.soup = BeautifulSoup(page.text, 'html.parser')       
+        #page = requests.get(page)
+        self.soup = BeautifulSoup(page, 'html.parser')       
         self.pageName = self.soup.h1.get_text().strip()
         self.cardRemoval = ['Version', 'Contributors:\xa0']
         self.pt3Removal = ['references', 'examples'] 
@@ -59,19 +59,21 @@ class pageScraper:
     def build(self, csv):
         totalDict = {**self.descBodyScraper(), **self.pt3Scraper(), **self.cardScraper()}
         csv.writerow([' '])
-        csv.writerow(['Page', self.pageName])
         for key in totalDict.keys():
-            csv.writerow([key, totalDict[key]])
+            csv.writerow([self.pageName, key, totalDict[key]])
 
 def webScraper():
-    csvfile = csv.writer(open('output.csv', 'w'), delimiter=':')
+    file1 = open('T1028','rb')
+    file2 = open('T1044','rb')
+    csvfile = csv.writer(open('output.csv', 'w'), delimiter=',')
     soup = BeautifulSoup(open('windows','rb'), 'html.parser')       
     for row in soup.tbody.children:
         if row != '\n':
-            for box in row:
-                if box != '\n' and box.a != None:
-                    pageScraper('https://attack.mitre.org'+box.a['href']).build(csvfile)
-                    print('page written')
-                    time.sleep(5)
+            for box in [file1, file2]:
+                #if box != '\n' and box.a != None:
+                pageScraper(box).build(csvfile)
+                #pageScraper('https://attack.mitre.org'+box.a['href']).build(csvfile)
+                print('page written')
+                    #time.sleep(5)
 
 webScraper()
