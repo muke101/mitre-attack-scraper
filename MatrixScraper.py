@@ -9,7 +9,7 @@ class pageScraper:
         page = requests.get(page)
         self.soup = BeautifulSoup(page.text, 'html.parser')       
         self.pageName = self.soup.h1.get_text().strip()
-        self.cardRemoval = ['Version']
+        self.cardRemoval = ['Version', 'Contributors:\xa0']
         self.pt3Removal = ['references', 'examples'] 
     
     def cardScraper(self):
@@ -20,7 +20,10 @@ class pageScraper:
             if key != ' ': 
                 cardDict[key] = [i for i in strings][0].strip(' :') 
         for entry in self.cardRemoval:
-            del cardDict[entry]
+            try:
+                del cardDict[entry]
+            except KeyError:
+                pass
         return cardDict
                 
     def pt3Scraper(self):
@@ -68,6 +71,7 @@ def webScraper():
             for box in row:
                 if box != '\n' and box.a != None:
                     pageScraper('https://attack.mitre.org'+box.a['href']).build(csvfile)
-                    time.sleep(10)
+                    print('page written')
+                    time.sleep(5)
 
 webScraper()

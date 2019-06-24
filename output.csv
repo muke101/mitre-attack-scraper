@@ -20,4 +20,3 @@ Tactic:Defense Evasion, Execution
 "Data Sources: ":Process monitoring, Process command-line parameters, Process use of network, Windows event logs
 "Supports Remote: ":No
 "Defense Bypassed: ":Application whitelisting, Anti-virus
-"Contributors: ":Ye Yint Min Thu Htut, Offensive Security Team, DBS Bank; Nik Seetharaman, Palantir
