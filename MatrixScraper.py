@@ -53,23 +53,21 @@ class pageScraper:
             descDict[currentHeader] = ''.join(paragraphs)
         return descDict
     
-    def build(self):
-        writer = csv.writer(open('output.csv', 'w'), delimiter=':')
+    def build(self, csv):
         totalDict = {**self.descBodyScraper(), **self.pt3Scraper(), **self.cardScraper()}
-        writer.writerow(['Page', self.pageName])
+        csv.writerow([' '])
+        csv.writerow(['Page', self.pageName])
         for key in totalDict.keys():
-            writer.writerow([key, totalDict[key]])
+            csv.writerow([key, totalDict[key]])
 
 def webScraper():
+    csvfile = csv.writer(open('output.csv', 'w'), delimiter=':')
     soup = BeautifulSoup(open('windows','rb'), 'html.parser')       
     for row in soup.tbody.children:
         if row != '\n':
             for box in row:
                 if box != '\n' and box.a != None:
-                    #return pageScraper('https://attack.mitre.org/techniques/T1044/').build()
-                    return pageScraper('https://attack.mitre.org'+box.a['href']).build()
+                    pageScraper('https://attack.mitre.org'+box.a['href']).build(csvfile)
+                    time.sleep(10)
 
-#for scrape in webScraper():
-#    print(scrape)
-#    time.sleep(10)
 webScraper()

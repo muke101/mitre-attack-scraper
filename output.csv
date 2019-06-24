@@ -1,3 +1,4 @@
+ 
 Page:Drive-by Compromise
 Drive-by Compromise:Unlike Exploit Public-Facing Application, the focus of this technique is to exploit software on a client endpoint upon visiting a website. This will commonly give an adversary access to systems on the internal network instead of external systems that may be in a DMZ.
 Mitigation:Drive-by compromise relies on there being a vulnerable piece of software on the client end systems. Use modern browsers with security features turned on. Ensure all browsers and plugins kept updated can help prevent the exploit phase of this technique.
@@ -7,3 +8,16 @@ Tactic:Initial Access
 "Platform: ":Windows, Linux, macOS
 "Permissions Required: ":User
 "Data Sources: ":Packet capture, Network device logs, Process use of network, Web proxy, Network intrusion detection system, SSL/TLS inspection
+ 
+Page:CMSTP
+CMSTP:CMSTP.exe can also be abused to Bypass User Account Control and execute arbitrary commands from a malicious INF through an auto-elevated COM interface. [3] [5] [6]
+Mitigation:CMSTP.exe may not be necessary within a given environment (unless using it for VPN connection installation). Consider using application whitelisting configured to block execution of CMSTP.exe if it is not required for a given system or network to prevent potential misuse by adversaries. 
+Detection:Use process monitoring to detect and analyze the execution and arguments of CMSTP.exe. Compare recent invocations of CMSTP.exe with prior history of known good arguments and loaded files to determine anomalous and potentially adversarial activity.
+ID:T1191
+Tactic:Defense Evasion, Execution
+"Platform: ":Windows
+"Permissions Required: ":User
+"Data Sources: ":Process monitoring, Process command-line parameters, Process use of network, Windows event logs
+"Supports Remote: ":No
+"Defense Bypassed: ":Application whitelisting, Anti-virus
+"Contributors: ":Ye Yint Min Thu Htut, Offensive Security Team, DBS Bank; Nik Seetharaman, Palantir
