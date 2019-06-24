@@ -1,12 +1,14 @@
 from bs4 import BeautifulSoup
 import requests
 import time
+import csv
 import re
 
 class pageScraper:
     def __init__(self, page):
         page = requests.get(page)
         self.soup = BeautifulSoup(page.text, 'html.parser')       
+        self.pageName = self.soup.h1.get_text().strip()
         self.cardRemoval = ['Version']
         self.pt3Removal = ['references', 'examples'] 
     
@@ -28,20 +30,35 @@ class pageScraper:
                 pt3Dict[tag.contents[0]] = tag.next_sibling.next_sibling.contents[0] 
         return pt3Dict
     
-    def descBodyScraper(self):
-        descs = []
+    def descBodyScraper(self): #TODO: remove referance tags
+        descDict = {} 
+        firstHeader = True
         for tag in self.soup.find(class_='col-md-8 description-body').contents:
             if tag != '\n':
-                descs.append(tag.get_text())
-        return descs
+                paragraphs = []
+                if tag.name != 'h3':
+                    paragraphs.append(tag.get_text())
+                elif firstHeader == True:
+                    descDict[self.pageName] = ''.join(paragraphs)
+                    firstHeader = False
+                    currentHeader = tag.get_text().strip()
+                    paragraphs = []
+                else:
+                    descDict[currentHeader] = ''.join(paragraphs)
+                    currentHeader = tag.get_text().strip()
+                    paragraphs = []
+        if firstHeader == True:
+            descDict[self.pageName] = ''.join(paragraphs)    
+        else:
+            descDict[currentHeader] = ''.join(paragraphs)
+        return descDict
     
     def build(self):
-        resultDict = {}
-        resultDict['card'] = self.cardScraper()
-        resultDict['pt3'] = self.pt3Scraper()
-        resultDict['descBody'] = self.descBodyScraper()
-        return resultDict
-
+        writer = csv.writer(open('output.csv', 'w'), delimiter=':')
+        totalDict = {**self.descBodyScraper(), **self.pt3Scraper(), **self.cardScraper()}
+        writer.writerow(['Page', self.pageName])
+        for key in totalDict.keys():
+            writer.writerow([key, totalDict[key]])
 
 def webScraper():
     soup = BeautifulSoup(open('windows','rb'), 'html.parser')       
@@ -49,8 +66,10 @@ def webScraper():
         if row != '\n':
             for box in row:
                 if box != '\n' and box.a != None:
-                    yield pageScraper('https://attack.mitre.org'+box.a['href']).build()
+                    #return pageScraper('https://attack.mitre.org/techniques/T1044/').build()
+                    return pageScraper('https://attack.mitre.org'+box.a['href']).build()
 
-for scrape in webScraper():
-    print(scrape)
-    time.sleep(10)
+#for scrape in webScraper():
+#    print(scrape)
+#    time.sleep(10)
+webScraper()
