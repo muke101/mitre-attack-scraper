@@ -38,11 +38,11 @@ class pageScraper:
     def descBodyScraper(self): 
         descDict = {} 
         firstHeader = True
+        paragraphs = []
         for tag in self.soup.find(class_='col-md-8 description-body').contents:
             if tag != '\n':
-                paragraphs = []
                 if tag.name != 'h3':
-                    paragraphs.append(re.sub('\[\d\]','',tag.get_text()))
+                    paragraphs.append(re.sub('\[\d\]','',tag.get_text())+' ')
                 elif firstHeader == True:
                     descDict[self.pageName] = ''.join(paragraphs)
                     firstHeader = False
@@ -57,6 +57,7 @@ class pageScraper:
         else:
             descDict[currentHeader] = ''.join(paragraphs)
         return descDict
+        
 
     def pt3Inserter(self):
         contentList = ['Mitigation', 'Detection']
@@ -77,7 +78,7 @@ class pageScraper:
         for header in descDict.keys():
             newTag = self.outputSoup.new_tag("h3") 
             newTag.string = header
-            self.outputSoup.p.insert_before(newTag)
+            self.outputSoup.p.insert_after(newTag)
 
         for header in self.outputSoup.find_all('h3'):
             newTag = self.outputSoup.new_tag("p")
@@ -96,6 +97,7 @@ class pageScraper:
 
         self.pt3Inserter()
         self.descBodyInserter()
+        print(self.outputSoup.prettify())
 
 def webScraper():
     file1 = open('T1028','rb')
