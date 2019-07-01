@@ -7,21 +7,21 @@ import re
 
 class pageScraper:
     def __init__(self, page):
-        #page = requests.get(page)
+        #self.page = requests.get(page)
         self.soup = BeautifulSoup(page, 'html.parser')       
         self.pageName = self.soup.h1.get_text().strip()
-        self.cardRemoval = ['Version', 'Contributors:\xa0']
-        self.pt3Removal = ['references', 'examples'] 
+        self.page = 'https://mitreattack.com/'
     
     
     def cardScraper(self):
         cardDict = {}
+        cardRemoval = ['Version', 'Contributors', 'CAPEC ID']
         for tag in self.soup.find_all(class_='card-data'):
             strings = tag.strings
-            key = next(strings) #TODO: stirp off random hex's
+            key = re.sub(r'[^\x00-\x7f]|:',r'', next(strings))
             if key != ' ': 
                 cardDict[key] = [i for i in strings][0].strip(' :') 
-        for entry in self.cardRemoval:
+        for entry in cardRemoval:
             try:
                 del cardDict[entry]
             except KeyError:
@@ -30,8 +30,9 @@ class pageScraper:
                 
     def pt3Scraper(self):
         pt3Dict = {}
+        pt3Removal = ['references', 'examples'] 
         for tag in self.soup.find_all(class_='pt-3'):
-            if tag['id'] not in self.pt3Removal:
+            if tag['id'] not in pt3Removal:
                 pt3Dict[tag.contents[0]] = re.sub('\[\d\]','',tag.next_sibling.next_sibling.contents[0]) 
         return pt3Dict
     
@@ -85,8 +86,19 @@ class pageScraper:
             newTag.string = descDict[header.get_text()]
             header.insert_after(newTag)
 
-    def cardInserter(self):
-        pass
+    def cardInserter(self): 
+        cardDict = self.cardScraper()
+        startPosition = self.outputSoup.find('h1').next_sibling.next_sibling.next_sibling
+
+        newSoup = BeautifulSoup("<p><strong>ID</strong>: <a href="+self.page+">"+cardDict['ID']+"</a></p>",'html.parser')
+        startPosition.insert_before(newSoup)
+        del cardDict['ID']
+
+        for key in cardDict.keys():
+            newSoup = BeautifulSoup("<p><strong>"+key+"</strong>: "+cardDict[key]+"</p>","html.parser")
+            startPosition.insert_before(newSoup) 
+        print(self.outputSoup.prettify())
+                
 
     def build(self, csv, html):
         cardDict = self.cardScraper()
@@ -97,7 +109,7 @@ class pageScraper:
 
         self.pt3Inserter()
         self.descBodyInserter()
-        print(self.outputSoup.prettify())
+        self.cardInserter()
 
 def webScraper():
     file1 = open('T1028','rb')
