@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 import requests
 import time
 import csv
+import os
 import re
 
 class pageScraper:
@@ -11,6 +12,7 @@ class pageScraper:
         self.pageName = self.soup.h1.get_text().strip()
         self.cardRemoval = ['Version', 'Contributors:\xa0']
         self.pt3Removal = ['references', 'examples'] 
+    
     
     def cardScraper(self):
         cardDict = {}
@@ -30,7 +32,7 @@ class pageScraper:
         pt3Dict = {}
         for tag in self.soup.find_all(class_='pt-3'):
             if tag['id'] not in self.pt3Removal:
-                pt3Dict[tag.contents[0]] = re.sub('[\[\d\]]','',tag.next_sibling.next_sibling.contents[0]) 
+                pt3Dict[tag.contents[0]] = re.sub('\[\d\]','',tag.next_sibling.next_sibling.contents[0]) 
         return pt3Dict
     
     def descBodyScraper(self): 
@@ -40,7 +42,7 @@ class pageScraper:
             if tag != '\n':
                 paragraphs = []
                 if tag.name != 'h3':
-                    paragraphs.append(re.sub('[\[\d\]]','',tag.get_text()))
+                    paragraphs.append(re.sub('\[\d\]','',tag.get_text()))
                 elif firstHeader == True:
                     descDict[self.pageName] = ''.join(paragraphs)
                     firstHeader = False
@@ -55,22 +57,45 @@ class pageScraper:
         else:
             descDict[currentHeader] = ''.join(paragraphs)
         return descDict
-    
-    def build(self, csv, html):
-        descDict = self.descBodyScraper()
+
+    def pt3Inserter(self):
+        contentList = ['Mitigation', 'Detection']
         pt3Dict = self.pt3Scraper()
+
+        c = 0
+        for tag in self.outputSoup.tbody.children:
+            if tag != '\n':
+                tag.contents[3].p.string = pt3Dict[contentList[c]]
+                c+=1
+
+    def descBodyInserter(self): #TODO: test if insert_after is actually the inteded way to do this
+        descDict = self.descBodyScraper()
+
+        self.outputSoup.find('p').string = descDict[self.pageName] 
+        del descDict[self.pageName]
+
+        for header in descDict.keys():
+            newTag = self.outputSoup.new_tag("h3") 
+            newTag.string = header
+            self.outputSoup.p.insert_before(newTag)
+
+        for header in self.outputSoup.find_all('h3'):
+            newTag = self.outputSoup.new_tag("p")
+            newTag.string = descDict[header.get_text()]
+            header.insert_after(newTag)
+
+    def cardInserter(self):
+        pass
+
+    def build(self, csv, html):
         cardDict = self.cardScraper()
-        
-        totalDict = {**descDict, **pt3Dict, **cardDict}
-        csv.writerow([' '])
-        for key in totalDict.keys():
-            csv.writerow([self.pageName, key, totalDict[key]])
-        csv.writerow('\n')
 
-        html.write("<h1 id=\"title-text\" class=\"assistive\" style=\"display: block;\"><a>"+self.pageName+"</a> </h1><div><table><tbody><tr><td>Mitigation</td><td><p>"+pt3Dict['Mitigation']+"</p></td></tr><tr><td><p>Dectection</p></td><td><p>"+pt3Dict['Detection']+"</p></td></tr></tbody></table></div>")
-        html.write("\n")
-    
+        fileName = self.pageName+'.html'
+        os.system('cp source.html \''+fileName+'\'')
+        self.outputSoup = BeautifulSoup(open(fileName,'rb'),'html.parser')
 
+        self.pt3Inserter()
+        self.descBodyInserter()
 
 def webScraper():
     file1 = open('T1028','rb')
@@ -86,5 +111,4 @@ def webScraper():
                 #pageScraper('https://attack.mitre.org'+box.a['href']).build(csvfile)
                 print('page written')
                     #time.sleep(5)
-
 webScraper()
