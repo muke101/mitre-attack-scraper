@@ -67,7 +67,7 @@ class pageScraper:
         c = 0
         for tag in self.outputSoup.tbody.children:
             if tag != '\n':
-                tag.contents[3].p.string = pt3Dict[contentList[c]]
+                tag.contents[1].p.string = pt3Dict[contentList[c]]
                 c+=1
 
     def descBodyInserter(self): #TODO: test if insert_after is actually the inteded way to do this
@@ -88,7 +88,7 @@ class pageScraper:
 
     def cardInserter(self): 
         cardDict = self.cardScraper()
-        startPosition = self.outputSoup.find('h1').next_sibling.next_sibling.next_sibling
+        startPosition = self.outputSoup.find('h1').next_sibling
 
         newSoup = BeautifulSoup("<p><strong>ID</strong>: <a href="+self.page+">"+cardDict['ID']+"</a></p>",'html.parser')
         startPosition.insert_before(newSoup)
@@ -97,19 +97,19 @@ class pageScraper:
         for key in cardDict.keys():
             newSoup = BeautifulSoup("<p><strong>"+key+"</strong>: "+cardDict[key]+"</p>","html.parser")
             startPosition.insert_before(newSoup) 
-        print(self.outputSoup.prettify())
                 
 
     def build(self, csv, html):
         cardDict = self.cardScraper()
 
         fileName = self.pageName+'.html'
-        os.system('cp source.html \''+fileName+'\'')
+        os.system('cp source2.html \''+fileName+'\'')
         self.outputSoup = BeautifulSoup(open(fileName,'rb'),'html.parser')
 
         self.pt3Inserter()
         self.descBodyInserter()
         self.cardInserter()
+        print(self.outputSoup.prettify())
 
 def webScraper():
     file1 = open('T1028','rb')
@@ -119,10 +119,10 @@ def webScraper():
     soup = BeautifulSoup(open('windows','rb'), 'html.parser')       
     for row in soup.tbody.children:
         if row != '\n':
-            for box in [file1, file2]:
+            for box in [file1]:
                 #if box != '\n' and box.a != None:
                 pageScraper(box).build(csvfile, htmlfile)
                 #pageScraper('https://attack.mitre.org'+box.a['href']).build(csvfile)
-                print('page written')
+                #print('page written')
                     #time.sleep(5)
 webScraper()

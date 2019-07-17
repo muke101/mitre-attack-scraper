@@ -1,0 +1,168 @@
+<div class="wiki-content" id="main-content">
+ <div class="contentLayout2">
+  <div class="columnLayout two-right-sidebar" data-layout="two-right-sidebar">
+   <div class="cell normal" data-type="normal">
+    <div class="innerCell">
+     <p>
+      Windows Remote Management (WinRM) is the name of both a Windows service and a protocol that allows a user to interact with a remote system (e.g., run an executable, modify the Registry, modify services).  It may be called with the winrm command or by any number of programs such as PowerShell.
+     </p>
+     <h2 id="WindowsRemoteManagement-MitreRecommendations">
+      <strong>
+       Mitre Recommendations
+      </strong>
+     </h2>
+     <div class="table-wrap">
+      <table class="wrapped confluenceTable">
+       <colgroup>
+        <col/>
+        <col/>
+       </colgroup>
+       <tbody>
+        <tr>
+         <td class="confluenceTd">
+          Mitigation
+         </td>
+         <td class="confluenceTd">
+          <p>
+           Disable the WinRM service. If the service is necessary, lock down critical enclaves with separate WinRM infrastructure, accounts, and permissions. Follow WinRM best practices on configuration of authentication methods and use of host firewalls to restrict WinRM access to allow communication only to/from specific devices.
+          </p>
+         </td>
+        </tr>
+        <tr>
+         <td class="confluenceTd">
+          <p>
+           Detection
+          </p>
+         </td>
+         <td class="confluenceTd">
+          <p style="text-align: left;">
+           Monitor use of WinRM within an environment by tracking service execution. If it is not normally used or is disabled, then this may be an indicator of suspicious behavior. Monitor processes created and actions taken by the WinRM process or a WinRM invoked script to correlate it with other related events.
+          </p>
+         </td>
+        </tr>
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <div class="cell aside" data-type="aside">
+    <div class="innerCell">
+     <h1 id="WindowsRemoteManagement-SCORE:#/5" style="text-align: left;">
+      <strong>
+       SCORE: #/5
+      </strong>
+     </h1>
+     <p>
+      <strong>
+       ID
+      </strong>
+      :
+      <a href="https://mitreattack.com/">
+       T1028
+      </a>
+     </p>
+     <p>
+      <strong>
+       Tactic
+      </strong>
+      : Execution, Lateral Movement
+     </p>
+     <p>
+      <strong>
+       Platform
+      </strong>
+      : Windows
+     </p>
+     <p>
+      <strong>
+       System Requirements
+      </strong>
+      : WinRM listener turned on and configured on remote system
+     </p>
+     <p>
+      <strong>
+       Permissions Required
+      </strong>
+      : User, Administrator
+     </p>
+     <p>
+      <strong>
+       Data Sources
+      </strong>
+      : File monitoring, Authentication logs, Netflow/Enclave netflow, Process monitoring, Process command-line parameters
+     </p>
+     <p>
+      <strong>
+       Supports Remote
+      </strong>
+      : Yes
+     </p>
+     <p>
+      <br/>
+      <p>
+       <br/>
+      </p>
+     </p>
+    </div>
+   </div>
+  </div>
+  <div class="columnLayout single" data-layout="single">
+   <div class="cell normal" data-type="normal">
+    <div class="innerCell">
+     <h1 id="WindowsRemoteManagement-VISA" style="text-align: center;">
+      <em style="letter-spacing: -0.01em;">
+       <strong>
+        VISA
+       </strong>
+      </em>
+     </h1>
+     <hr/>
+     <p>
+      <br/>
+     </p>
+    </div>
+   </div>
+  </div>
+  <div class="columnLayout two-equal" data-layout="two-equal">
+   <div class="cell normal" data-type="normal">
+    <div class="innerCell">
+     <h2 id="WindowsRemoteManagement-Mitigation">
+      <strong>
+       Mitigation
+      </strong>
+     </h2>
+     <p>
+     </p>
+     <p>
+      <br/>
+     </p>
+    </div>
+   </div>
+   <div class="cell normal" data-type="normal">
+    <div class="innerCell">
+     <h2 id="WindowsRemoteManagement-Detection">
+      <strong>
+       Detection
+      </strong>
+     </h2>
+     <p>
+     </p>
+    </div>
+   </div>
+  </div>
+ </div>
+</div>
+<div class="columnLayout single" data-layout="single">
+ <div class="cell normal" data-type="normal">
+  <div class="innerCell">
+   <p>
+    <br/>
+   </p>
+   <p>
+    <p>
+    </p>
+   </p>
+  </div>
+ </div>
+</div>
+
