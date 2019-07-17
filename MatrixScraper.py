@@ -119,7 +119,7 @@ def webScraper():
     soup = BeautifulSoup(open('windows','rb'), 'html.parser')       
     for row in soup.tbody.children:
         if row != '\n':
-            for box in [file1]:
+            for box in [file2]:
                 #if box != '\n' and box.a != None:
                 pageScraper(box).build(csvfile, htmlfile)
                 #pageScraper('https://attack.mitre.org'+box.a['href']).build(csvfile)
