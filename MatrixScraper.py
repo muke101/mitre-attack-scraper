@@ -99,7 +99,7 @@ class pageScraper:
             startPosition.insert_before(newSoup) 
                 
 
-    def build(self, csv, html):
+    def build(self):
         cardDict = self.cardScraper()
 
         fileName = self.pageName+'.html'
@@ -109,20 +109,17 @@ class pageScraper:
         self.pt3Inserter()
         self.descBodyInserter()
         self.cardInserter()
-        print(self.outputSoup.prettify())
 
 def webScraper():
     file1 = open('T1028','rb')
     file2 = open('T1044','rb')
-    csvfile = csv.writer(open('output.csv', 'w'), delimiter=',')
-    htmlfile = open('output.html', 'w')
     soup = BeautifulSoup(open('windows','rb'), 'html.parser')       
     for row in soup.tbody.children:
         if row != '\n':
-            for box in [file1]:
+            for box in [file1, file2]:
                 #if box != '\n' and box.a != None:
-                pageScraper(box).build(csvfile, htmlfile)
+                pageScraper(box).build()
                 #pageScraper('https://attack.mitre.org'+box.a['href']).build(csvfile)
-                #print('page written')
+                print('page written')
                     #time.sleep(5)
 webScraper()
