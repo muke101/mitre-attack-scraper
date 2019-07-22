@@ -10,7 +10,8 @@ class pageScraper:
         #self.page = requests.get(page)
         self.soup = BeautifulSoup(page, 'html.parser')       
         self.pageName = self.soup.h1.get_text().strip()
-        self.page = 'https://mitreattack.com/'
+        self.outputSoup = BeautifulSoup(open('source2.html','rb'),'html.parser')
+        self.page = 'www.mitreattack.com'
     
     
     def cardScraper(self):
@@ -100,15 +101,12 @@ class pageScraper:
                 
 
     def build(self):
-        cardDict = self.cardScraper()
-
-        fileName = self.pageName+'.html'
-        os.system('cp source2.html \''+fileName+'\'')
-        self.outputSoup = BeautifulSoup(open(fileName,'rb'),'html.parser')
-
         self.pt3Inserter()
         self.descBodyInserter()
         self.cardInserter()
+
+        output = open(self.pageName+'.html', 'w')
+        output.write(str(self.outputSoup))
 
 def webScraper():
     file1 = open('T1028','rb')
@@ -119,7 +117,7 @@ def webScraper():
             for box in [file1, file2]:
                 #if box != '\n' and box.a != None:
                 pageScraper(box).build()
-                #pageScraper('https://attack.mitre.org'+box.a['href']).build(csvfile)
+                #pageScraper('https://attack.mitre.org'+box.a['href']).build()
                 print('page written')
                     #time.sleep(5)
 webScraper()

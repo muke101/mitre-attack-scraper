@@ -1,29 +1,28 @@
 <ac:layout>
 <ac:layout-section ac:type="two_right_sidebar">
 <ac:layout-cell>
-<div id="main-content" class="wiki-content">
-                           
-  <div class="contentLayout2">
+<div class="wiki-content" id="main-content">
+<div class="contentLayout2">
 <div class="columnLayout two-right-sidebar" data-layout="two-right-sidebar">
 <div class="cell normal" data-type="normal">
 <div class="innerCell">
-<p></p><h2 id="MitreRecommendations"><strong>Mitre Recommendations</strong></h2><div class="table-wrap"><table class="wrapped confluenceTable"><colgroup><col><col></colgroup><tbody><tr><td class="confluenceTd">Mitigation</td><td class="confluenceTd"><p></p></td></tr><tr><td class="confluenceTd"><p>Detection</p></td><td class="confluenceTd"><p style="text-align: left;"></p></td></tr></tbody></table></div></div>
+<p>Processes may automatically execute specific binaries as part of their functionality or to perform other actions. If the permissions on the file system directory containing a target binary, or permissions on the binary itself, are improperly set, then the target binary may be overwritten with another binary using user-level permissions and executed by the original process. If the original process and thread are running under a higher permissions level, then the replaced binary will also execute under higher-level permissions, which could include SYSTEM. Adversaries may use this technique to replace legitimate binaries with malicious ones as a means of executing code at a higher permissions level. If the executing process is set to run at a specific time or during a certain event (e.g., system bootup) then this technique can also be used for persistence. </p><h3>Executable Installers</h3><p>Another variation of this technique can be performed by taking advantage of a weakness that is common in executable, self-extracting installers. During the installation process, it is common for installers to use a subdirectory within the %TEMP% directory to unpack binaries such as DLLs, EXEs, or other payloads. When installers create subdirectories and files they often do not set appropriate permissions to restrict write access, which allows for execution of untrusted code placed in the subdirectories or overwriting of binaries used in the installation process. This behavior is related to and may take advantage of DLL Search Order Hijacking. Some installers may also require elevated privileges that will result in privilege escalation when executing adversary controlled code. This behavior is related to Bypass User Account Control. Several examples of this weakness in existing common installers have been reported to software vendors.   </p><h3>Services</h3><p>Manipulation of Windows service binaries is one variation of this technique. Adversaries may replace a legitimate service executable with their own executable to gain persistence and/or privilege escalation to the account context the service is set to execute under (local/domain account, SYSTEM, LocalService, or NetworkService). Once the service is started, either directly by the user (if appropriate access is available) or through some other means, such as a system restart if the service starts on bootup, the replaced executable will run instead of the original service executable. </p><h2 id="MitreRecommendations"><strong>Mitre Recommendations</strong></h2><div class="table-wrap"><table class="wrapped confluenceTable"><colgroup><col/><col/></colgroup><tbody><tr><td class="confluenceTd">Mitigation</td><td class="confluenceTd"><p>Use auditing tools capable of detecting file system permissions abuse opportunities on systems within an enterprise and correct them. Limit privileges of user accounts and groups so that only authorized administrators can interact with service changes and service binary target path locations. Toolkits like the PowerSploit framework contain PowerUp modules that can be used to explore systems for service file system permissions weaknesses. </p></td></tr><tr><td class="confluenceTd"><p>Detection</p></td><td class="confluenceTd"><p style="text-align: left;">Look for changes to binaries and service executables that may normally occur during software updates. If an executable is written, renamed, and/or moved to match an existing service executable, it could be detected and correlated with other suspicious behavior. Hashing of binaries and service executables could be used to detect replacement against historical data.</p></td></tr></tbody></table></div></div>
 </div>
-</ac:layout-cell>
+</div></div></div></ac:layout-cell>
 <ac:layout-cell>
 <div class="cell aside" data-type="aside">
 <div class="innerCell">
-<h1 style="text-align: left;" id="SCORE:#/5"><strong>SCORE: #/5</strong></h1><p><br><p><br></p></div>
+<h1 id="SCORE:#/5" style="text-align: left;"><strong>SCORE: #/5</strong></h1><p><strong>ID</strong>: <a href="www.mitreattack.com">T1044</a></p><p><strong>Tactic</strong>: Persistence, Privilege Escalation</p><p><strong>Platform</strong>: Windows</p><p><strong>Permissions Required</strong>: Administrator, User</p><p><strong>Effective Permissions</strong>: SYSTEM, User, Administrator</p><p><strong>Data Sources</strong>: File monitoring, Services, Process command-line parameters</p><p><br/><p><br/></p></p></div>
 </div>
-</div>
-</ac:layout-cell>
-</ac:layout-selection>
+</ac:layout-cell></ac:layout-section></ac:layout>
+
+
 <ac:layout-section ac:type="single">
 <ac:layout-cell>
 <div class="columnLayout single" data-layout="single">
 <div class="cell normal" data-type="normal">
 <div class="innerCell">
-<h1 style="text-align: center;" id="VISA"><em style="letter-spacing: -0.01em;"><strong>VISA</strong></em></h1><hr><p><br></p></div>
+<h1 id="VISA" style="text-align: center;"><em style="letter-spacing: -0.01em;"><strong>VISA</strong></em></h1><hr/><p><br/></p></div>
 </div>
 </div>
 </ac:layout-cell>
@@ -33,31 +32,26 @@
 <div class="columnLayout two-equal" data-layout="two-equal">
 <div class="cell normal" data-type="normal">
 <div class="innerCell">
-<h2 id="Mitigation"><strong>Mitigation&nbsp;</strong></h2><p></p><p><br></p></div>
+<h2 id="Mitigation"><strong>Mitigation </strong></h2><p></p><p><br/></p></div>
 </div>
-</ac:layout-cell>
+</div></ac:layout-cell>
 <ac:layout-cell>
 <div class="cell normal" data-type="normal">
 <div class="innerCell">
-<h2 id="Detection"><strong>Detection</strong></h2><p></li></ul></div>
-</div>
-</div>
-</ac:layout-cell>
+<h2 id="Detection"><strong>Detection</strong></h2><p></p></div></div></ac:layout-cell></ac:layout-section>
+
+
+
 <ac:layout-section ac:type="single">
 <div class="columnLayout single" data-layout="single">
 <div class="cell normal" data-type="normal">
 <div class="innerCell">
-<p><br></p><p>
-
-<p></p></div>
+<p><br/></p><p>
+<p></p></p></div>
 </div>
 </div>
-</div>
+</ac:layout-section>
 
-          
-  
 
-  </div>
- </ac:layout-cell>
- </ac:layout-section>
- </ac:layout>
+
+
