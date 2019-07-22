@@ -105,8 +105,11 @@ class pageScraper:
         self.descBodyInserter()
         self.cardInserter()
 
-        output = open(self.pageName+'.html', 'w')
-        output.write(str(self.outputSoup))
+        fileName = self.pageName+'.html'
+        output = open(fileName, 'w')
+        output.write(re.sub('</ac:layout>', '', str(self.outputSoup)))
+        output.close()
+        os.system('echo \'</ac:layout>\' >> \''+fileName+'\'')
 
 def webScraper():
     file1 = open('T1028','rb')
@@ -114,10 +117,7 @@ def webScraper():
     soup = BeautifulSoup(open('windows','rb'), 'html.parser')       
     for row in soup.tbody.children:
         if row != '\n':
-<<<<<<< HEAD
-=======
-            for box in [file2]:
->>>>>>> 51f5212b17b02694ccbff8aaafcebf6617177568
+            for box in [file1, file2]:
                 #if box != '\n' and box.a != None:
                 pageScraper(box).build()
                 #pageScraper('https://attack.mitre.org'+box.a['href']).build()
