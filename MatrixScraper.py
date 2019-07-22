@@ -114,7 +114,10 @@ def webScraper():
     soup = BeautifulSoup(open('windows','rb'), 'html.parser')       
     for row in soup.tbody.children:
         if row != '\n':
-            for box in [file1, file2]:
+<<<<<<< HEAD
+=======
+            for box in [file2]:
+>>>>>>> 51f5212b17b02694ccbff8aaafcebf6617177568
                 #if box != '\n' and box.a != None:
                 pageScraper(box).build()
                 #pageScraper('https://attack.mitre.org'+box.a['href']).build()
