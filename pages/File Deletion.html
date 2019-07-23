@@ -1,0 +1,58 @@
+<ac:layout>
+<ac:layout-section ac:type="two_right_sidebar">
+<ac:layout-cell>
+<div class="wiki-content" id="main-content">
+<div class="contentLayout2">
+<div class="columnLayout two-right-sidebar" data-layout="two-right-sidebar">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p>Malware, tools, or other non-native files dropped or created on a system by an adversary may leave traces behind as to what was done within a network and how. Adversaries may remove these files over the course of an intrusion to keep their footprint low or remove them at the end as part of the post-intrusion cleanup process. There are tools available from the host operating system to perform cleanup, but adversaries may use other tools as well. Examples include native cmd functions such as DEL, secure deletion tools such as Windows Sysinternals SDelete, or other third-party file deletion tools.  </p><h2 id="MitreRecommendations"><strong>Mitre Recommendations</strong></h2><div class="table-wrap"><table class="wrapped confluenceTable"><colgroup><col/><col/></colgroup><tbody><tr><td class="confluenceTd">Mitigation</td><td class="confluenceTd"><p>Identify unnecessary system utilities, third-party tools, or potentially malicious software that may be used to delete files, and audit and/or block them by using whitelisting [109] tools like AppLocker [110] [111] or Software Restriction Policies [112] where appropriate. [113]</p></td></tr><tr><td class="confluenceTd"><p>Detection</p></td><td class="confluenceTd"><p style="text-align: left;">It may be uncommon for events related to benign command-line functions such as DEL or third-party utilities or tools to be found in an environment, depending on the user base and how systems are typically used. Monitoring for command-line deletion functions to correlate with binaries or other files that an adversary may drop and remove may lead to detection of malicious activity. Another good practice is monitoring for known deletion and secure deletion tools that are not already on systems within an enterprise network that an adversary could introduce. Some monitoring tools may collect command-line arguments, but may not capture DEL commands since DEL is a native function within cmd.exe.</p></td></tr></tbody></table></div></div>
+</div>
+</div></div></div></ac:layout-cell>
+<ac:layout-cell>
+<div class="cell aside" data-type="aside">
+<div class="innerCell">
+<h1 id="SCORE:#/5" style="text-align: left;"><strong>SCORE: #/5</strong></h1><p><strong>ID</strong>: <a href="https://attack.mitre.org/techniques/T1107">T1107</a></p><p><strong>Tactic</strong>: Defense Evasion</p><p><strong>Platform</strong>: Linux, macOS, Windows</p><p><strong>Permissions Required</strong>: User</p><p><strong>Data Sources</strong>: File monitoring, Process command-line parameters, Binary file metadata</p><p><strong>Defense Bypassed</strong>: Host forensic analysis</p><p><br/><p><br/></p></p></div>
+</div>
+</ac:layout-cell></ac:layout-section>
+
+
+<ac:layout-section ac:type="single">
+<ac:layout-cell>
+<div class="columnLayout single" data-layout="single">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h1 id="VISA" style="text-align: center;"><em style="letter-spacing: -0.01em;"><strong>VISA</strong></em></h1><hr/><p><br/></p></div>
+</div>
+</div>
+</ac:layout-cell>
+</ac:layout-section>
+<ac:layout-section ac:type="two_equal">
+<ac:layout-cell>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h2 id="Mitigation"><strong>Mitigation </strong></h2><p></p><p><br/></p></div>
+</div>
+</div></ac:layout-cell>
+<ac:layout-cell>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h2 id="Detection"><strong>Detection</strong></h2><p></p></div></div></ac:layout-cell></ac:layout-section>
+
+
+
+<ac:layout-section ac:type="single">
+<div class="columnLayout single" data-layout="single">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br/></p><p>
+<p></p></p></div>
+</div>
+</div>
+</ac:layout-section>
+
+
+
+
+</ac:layout>

@@ -1,0 +1,58 @@
+<ac:layout>
+<ac:layout-section ac:type="two_right_sidebar">
+<ac:layout-cell>
+<div class="wiki-content" id="main-content">
+<div class="contentLayout2">
+<div class="columnLayout two-right-sidebar" data-layout="two-right-sidebar">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p>Command-line interfaces provide a way of interacting with computer systems and is a common feature across many types of operating system platforms.  One example command-line interface on Windows systems is cmd, which can be used to perform a number of tasks including execution of other software. Command-line interfaces can be interacted with locally or remotely via a remote desktop application, reverse shell session, etc. Commands that are executed run with the current permission level of the command-line interface process unless the command includes process invocation that changes permissions context for that execution (e.g. Scheduled Task). Adversaries may use command-line interfaces to interact with systems and execute other software during the course of an operation. </p><h2 id="MitreRecommendations"><strong>Mitre Recommendations</strong></h2><div class="table-wrap"><table class="wrapped confluenceTable"><colgroup><col/><col/></colgroup><tbody><tr><td class="confluenceTd">Mitigation</td><td class="confluenceTd"><p>Audit and/or block command-line interpreters by using whitelisting [148] tools, like AppLocker, [149] [150] or Software Restriction Policies [151] where appropriate. [152]</p></td></tr><tr><td class="confluenceTd"><p>Detection</p></td><td class="confluenceTd"><p style="text-align: left;">Command-line interface activities can be captured through proper logging of process execution with command-line arguments. This information can be useful in gaining additional insight to adversaries' actions through how they use native processes or custom tools.</p></td></tr></tbody></table></div></div>
+</div>
+</div></div></div></ac:layout-cell>
+<ac:layout-cell>
+<div class="cell aside" data-type="aside">
+<div class="innerCell">
+<h1 id="SCORE:#/5" style="text-align: left;"><strong>SCORE: #/5</strong></h1><p><strong>ID</strong>: <a href="https://attack.mitre.org/techniques/T1059">T1059</a></p><p><strong>Tactic</strong>: Execution</p><p><strong>Platform</strong>: Linux, macOS, Windows</p><p><strong>Permissions Required</strong>: User, Administrator, SYSTEM</p><p><strong>Data Sources</strong>: Process monitoring, Process command-line parameters</p><p><strong>Supports Remote</strong>: No</p><p><br/><p><br/></p></p></div>
+</div>
+</ac:layout-cell></ac:layout-section>
+
+
+<ac:layout-section ac:type="single">
+<ac:layout-cell>
+<div class="columnLayout single" data-layout="single">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h1 id="VISA" style="text-align: center;"><em style="letter-spacing: -0.01em;"><strong>VISA</strong></em></h1><hr/><p><br/></p></div>
+</div>
+</div>
+</ac:layout-cell>
+</ac:layout-section>
+<ac:layout-section ac:type="two_equal">
+<ac:layout-cell>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h2 id="Mitigation"><strong>Mitigation </strong></h2><p></p><p><br/></p></div>
+</div>
+</div></ac:layout-cell>
+<ac:layout-cell>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h2 id="Detection"><strong>Detection</strong></h2><p></p></div></div></ac:layout-cell></ac:layout-section>
+
+
+
+<ac:layout-section ac:type="single">
+<div class="columnLayout single" data-layout="single">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br/></p><p>
+<p></p></p></div>
+</div>
+</div>
+</ac:layout-section>
+
+
+
+
+</ac:layout>

@@ -1,0 +1,58 @@
+<ac:layout>
+<ac:layout-section ac:type="two_right_sidebar">
+<ac:layout-cell>
+<div class="wiki-content" id="main-content">
+<div class="contentLayout2">
+<div class="columnLayout two-right-sidebar" data-layout="two-right-sidebar">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p>Adversaries may modify Group Policy Objects (GPOs) to subvert the intended discretionary access controls for a domain, usually with the intention of escalating privileges on the domain.  Group policy allows for centralized management of user and computer settings in Active Directory (AD). GPOs are containers for group policy settings made up of files stored within a predicable network path \&lt;DOMAIN&gt;\SYSVOL\&lt;DOMAIN&gt;\Policies\.  Like other objects in AD, GPOs have access controls associated with them. By default all user accounts in the domain have permission to read GPOs. It is possible to delegate GPO access control permissions, e.g. write access, to specific users or groups in the domain. Malicious GPO modifications can be used to implement Scheduled Task, Disabling Security Tools, Remote File Copy, Create Account, Service Execution and more. Since GPOs can control so many user and machine settings in the AD environment, there are a great number of potential attacks that can stem from this GPO abuse. Publicly available scripts such as New-GPOImmediateTask can be leveraged to automate the creation of a malicious Scheduled Task by modifying GPO settings, in this case modifying &lt;GPO_PATH&gt;\Machine\Preferences\ScheduledTasks\ScheduledTasks.xml. In some cases an adversary might modify specific user rights like SeEnableDelegationPrivilege, set in &lt;GPO_PATH&gt;\MACHINE\Microsoft\Windows NT\SecEdit\GptTmpl.inf, to achieve a subtle AD backdoor with complete control of the domain because the user account under the adversary's control would then be able to modify GPOs. </p><h2 id="MitreRecommendations"><strong>Mitre Recommendations</strong></h2><div class="table-wrap"><table class="wrapped confluenceTable"><colgroup><col/><col/></colgroup><tbody><tr><td class="confluenceTd">Mitigation</td><td class="confluenceTd"><p>Identify and correct GPO permissions abuse opportunities (ex: GPO modification privileges) using auditing tools such as Bloodhound (version 1.5.1 and later).</p></td></tr><tr><td class="confluenceTd"><p>Detection</p></td><td class="confluenceTd"><p style="text-align: left;">It is possible to detect GPO modifications by monitoring directory service changes using Windows event logs. Several events may be logged for such GPO modifications, including: Event ID 5136 - A directory service object was modified Event ID 5137 - A directory service object was created Event ID 5138 - A directory service object was undeleted Event ID 5139 - A directory service object was moved* Event ID 5141 - A directory service object was deleted</p></td></tr></tbody></table></div></div>
+</div>
+</div></div></div></ac:layout-cell>
+<ac:layout-cell>
+<div class="cell aside" data-type="aside">
+<div class="innerCell">
+<h1 id="SCORE:#/5" style="text-align: left;"><strong>SCORE: #/5</strong></h1><p><strong>ID</strong>: <a href="https://attack.mitre.org/techniques/T1484">T1484</a></p><p><strong>Tactic</strong>: Defense Evasion</p><p><strong>Platform</strong>: Windows</p><p><strong>Permissions Required</strong>: Administrator, User</p><p><strong>Data Sources</strong>: Windows event logs</p><p><strong>Defense Bypassed</strong>: System access controls, File system access controls</p><p><br/><p><br/></p></p></div>
+</div>
+</ac:layout-cell></ac:layout-section>
+
+
+<ac:layout-section ac:type="single">
+<ac:layout-cell>
+<div class="columnLayout single" data-layout="single">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h1 id="VISA" style="text-align: center;"><em style="letter-spacing: -0.01em;"><strong>VISA</strong></em></h1><hr/><p><br/></p></div>
+</div>
+</div>
+</ac:layout-cell>
+</ac:layout-section>
+<ac:layout-section ac:type="two_equal">
+<ac:layout-cell>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h2 id="Mitigation"><strong>Mitigation </strong></h2><p></p><p><br/></p></div>
+</div>
+</div></ac:layout-cell>
+<ac:layout-cell>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h2 id="Detection"><strong>Detection</strong></h2><p></p></div></div></ac:layout-cell></ac:layout-section>
+
+
+
+<ac:layout-section ac:type="single">
+<div class="columnLayout single" data-layout="single">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br/></p><p>
+<p></p></p></div>
+</div>
+</div>
+</ac:layout-section>
+
+
+
+
+</ac:layout>

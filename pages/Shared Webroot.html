@@ -1,0 +1,58 @@
+<ac:layout>
+<ac:layout-section ac:type="two_right_sidebar">
+<ac:layout-cell>
+<div class="wiki-content" id="main-content">
+<div class="contentLayout2">
+<div class="columnLayout two-right-sidebar" data-layout="two-right-sidebar">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p>Adversaries may add malicious content to an internally accessible website through an open network file share that contains the website's webroot or Web content directory   and then browse to that content with a Web browser to cause the server to execute the malicious content. The malicious content will typically run under the context and permissions of the Web server process, often resulting in local system or administrative privileges, depending on how the Web server is configured. This mechanism of shared access and remote execution could be used for lateral movement to the system running the Web server. For example, a Web server running PHP with an open network share could allow an adversary to upload a remote access tool and PHP script to execute the RAT on the system running the Web server when a specific page is visited.  </p><h2 id="MitreRecommendations"><strong>Mitre Recommendations</strong></h2><div class="table-wrap"><table class="wrapped confluenceTable"><colgroup><col/><col/></colgroup><tbody><tr><td class="confluenceTd">Mitigation</td><td class="confluenceTd"><p>Networks that allow for open development and testing of Web content and allow users to set up their own Web servers on the enterprise network may be particularly vulnerable if the systems and Web servers are not properly secured to limit privileged account use, unauthenticated network share access, and network/system isolation.</p></td></tr><tr><td class="confluenceTd"><p>Detection</p></td><td class="confluenceTd"><p style="text-align: left;">Use file and process monitoring to detect when files are written to a Web server by a process that is not the normal Web server process or when files are written outside of normal administrative time periods. Use process monitoring to identify normal processes that run on the Web server and detect processes that are not typically executed.</p></td></tr></tbody></table></div></div>
+</div>
+</div></div></div></ac:layout-cell>
+<ac:layout-cell>
+<div class="cell aside" data-type="aside">
+<div class="innerCell">
+<h1 id="SCORE:#/5" style="text-align: left;"><strong>SCORE: #/5</strong></h1><p><strong>ID</strong>: <a href="https://attack.mitre.org/techniques/T1051">T1051</a></p><p><strong>Tactic</strong>: Lateral Movement</p><p><strong>Platform</strong>: Windows</p><p><strong>System Requirements</strong>: Shared webroot directory on remote system</p><p><strong>Data Sources</strong>: File monitoring, Process monitoring</p><p><br/><p><br/></p></p></div>
+</div>
+</ac:layout-cell></ac:layout-section>
+
+
+<ac:layout-section ac:type="single">
+<ac:layout-cell>
+<div class="columnLayout single" data-layout="single">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h1 id="VISA" style="text-align: center;"><em style="letter-spacing: -0.01em;"><strong>VISA</strong></em></h1><hr/><p><br/></p></div>
+</div>
+</div>
+</ac:layout-cell>
+</ac:layout-section>
+<ac:layout-section ac:type="two_equal">
+<ac:layout-cell>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h2 id="Mitigation"><strong>Mitigation </strong></h2><p></p><p><br/></p></div>
+</div>
+</div></ac:layout-cell>
+<ac:layout-cell>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h2 id="Detection"><strong>Detection</strong></h2><p></p></div></div></ac:layout-cell></ac:layout-section>
+
+
+
+<ac:layout-section ac:type="single">
+<div class="columnLayout single" data-layout="single">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br/></p><p>
+<p></p></p></div>
+</div>
+</div>
+</ac:layout-section>
+
+
+
+
+</ac:layout>

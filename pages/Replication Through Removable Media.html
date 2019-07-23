@@ -1,0 +1,58 @@
+<ac:layout>
+<ac:layout-section ac:type="two_right_sidebar">
+<ac:layout-cell>
+<div class="wiki-content" id="main-content">
+<div class="contentLayout2">
+<div class="columnLayout two-right-sidebar" data-layout="two-right-sidebar">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p>Adversaries may move onto systems, possibly those on disconnected or air-gapped networks, by copying malware to removable media and taking advantage of Autorun features when the media is inserted into a system and executes. In the case of Lateral Movement, this may occur through modification of executable files stored on removable media or by copying malware and renaming it to look like a legitimate file to trick users into executing it on a separate system. In the case of Initial Access, this may occur through manual manipulation of the media, modification of systems used to initially format the media, or modification to the media's firmware itself. </p><h2 id="MitreRecommendations"><strong>Mitre Recommendations</strong></h2><div class="table-wrap"><table class="wrapped confluenceTable"><colgroup><col/><col/></colgroup><tbody><tr><td class="confluenceTd">Mitigation</td><td class="confluenceTd"><p>Disable Autorun if it is unnecessary. [11] Disallow or restrict removable media at an organizational policy level if it is not required for business operations. [12]</p></td></tr><tr><td class="confluenceTd"><p>Detection</p></td><td class="confluenceTd"><p style="text-align: left;">Monitor file access on removable media. Detect processes that execute from removable media after it is mounted or when initiated by a user. If a remote access tool is used in this manner to move laterally, then additional actions are likely to occur after execution, such as opening network connections for Command and Control and system and network information Discovery.</p></td></tr></tbody></table></div></div>
+</div>
+</div></div></div></ac:layout-cell>
+<ac:layout-cell>
+<div class="cell aside" data-type="aside">
+<div class="innerCell">
+<h1 id="SCORE:#/5" style="text-align: left;"><strong>SCORE: #/5</strong></h1><p><strong>ID</strong>: <a href="https://attack.mitre.org/techniques/T1091">T1091</a></p><p><strong>Tactic</strong>: Lateral Movement, Initial Access</p><p><strong>Platform</strong>: Windows</p><p><strong>System Requirements</strong>: Removable media allowed, Autorun enabled or vulnerability present that allows for code execution</p><p><strong>Permissions Required</strong>: User</p><p><strong>Data Sources</strong>: File monitoring, Data loss prevention</p><p><br/><p><br/></p></p></div>
+</div>
+</ac:layout-cell></ac:layout-section>
+
+
+<ac:layout-section ac:type="single">
+<ac:layout-cell>
+<div class="columnLayout single" data-layout="single">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h1 id="VISA" style="text-align: center;"><em style="letter-spacing: -0.01em;"><strong>VISA</strong></em></h1><hr/><p><br/></p></div>
+</div>
+</div>
+</ac:layout-cell>
+</ac:layout-section>
+<ac:layout-section ac:type="two_equal">
+<ac:layout-cell>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h2 id="Mitigation"><strong>Mitigation </strong></h2><p></p><p><br/></p></div>
+</div>
+</div></ac:layout-cell>
+<ac:layout-cell>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h2 id="Detection"><strong>Detection</strong></h2><p></p></div></div></ac:layout-cell></ac:layout-section>
+
+
+
+<ac:layout-section ac:type="single">
+<div class="columnLayout single" data-layout="single">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br/></p><p>
+<p></p></p></div>
+</div>
+</div>
+</ac:layout-section>
+
+
+
+
+</ac:layout>

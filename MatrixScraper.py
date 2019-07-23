@@ -7,11 +7,11 @@ import re
 
 class pageScraper:
     def __init__(self, page):
-        #self.page = requests.get(page)
-        self.soup = BeautifulSoup(page, 'html.parser')       
+        self.url = page
+        self.page = requests.get(page)
+        self.soup = BeautifulSoup(self.page.text, 'html.parser')       
         self.pageName = self.soup.h1.get_text().strip()
         self.outputSoup = BeautifulSoup(open('source2.html','rb'),'html.parser')
-        self.page = 'www.mitreattack.com'
     
     
     def cardScraper(self):
@@ -34,7 +34,13 @@ class pageScraper:
         pt3Removal = ['references', 'examples'] 
         for tag in self.soup.find_all(class_='pt-3'):
             if tag['id'] not in pt3Removal:
-                pt3Dict[tag.contents[0]] = re.sub('\[\d\]','',tag.next_sibling.next_sibling.contents[0]) 
+                text = []
+                for content in tag.next_sibling.next_sibling.contents:
+                    if content.string == None:
+                        text.append(content.text) 
+                    else:
+                        text.append(content.string)
+                pt3Dict[tag.contents[0]] = re.sub('\[\d\]','', ''.join(text))
         return pt3Dict
     
     def descBodyScraper(self): 
@@ -71,7 +77,7 @@ class pageScraper:
                 tag.contents[1].p.string = pt3Dict[contentList[c]]
                 c+=1
 
-    def descBodyInserter(self): #TODO: test if insert_after is actually the inteded way to do this
+    def descBodyInserter(self): 
         descDict = self.descBodyScraper()
 
         self.outputSoup.find('p').string = descDict[self.pageName] 
@@ -91,7 +97,7 @@ class pageScraper:
         cardDict = self.cardScraper()
         startPosition = self.outputSoup.find('h1').next_sibling
 
-        newSoup = BeautifulSoup("<p><strong>ID</strong>: <a href="+self.page+">"+cardDict['ID']+"</a></p>",'html.parser')
+        newSoup = BeautifulSoup("<p><strong>ID</strong>: <a href="+self.url+">"+cardDict['ID']+"</a></p>",'html.parser')
         startPosition.insert_before(newSoup)
         del cardDict['ID']
 
@@ -105,22 +111,22 @@ class pageScraper:
         self.descBodyInserter()
         self.cardInserter()
 
-        fileName = self.pageName+'.html'
+        fileName = re.sub('/', '^', self.pageName+'.html') #can't write file names with slashes in them, replacing with unique character to make parsing it out easier later
         output = open(fileName, 'w')
         output.write(re.sub('</ac:layout>', '', str(self.outputSoup)))
         output.close()
-        os.system('echo \'</ac:layout>\' >> \''+fileName+'\'')
+        os.system('echo \'</ac:layout>\' >> \''+fileName+'\'') #dirty hack - please ignore
 
 def webScraper():
-    file1 = open('T1028','rb')
-    file2 = open('T1044','rb')
     soup = BeautifulSoup(open('windows','rb'), 'html.parser')       
+    c = 0
     for row in soup.tbody.children:
         if row != '\n':
-            for box in [file1, file2]:
-                #if box != '\n' and box.a != None:
-                pageScraper(box).build()
-                #pageScraper('https://attack.mitre.org'+box.a['href']).build()
-                print('page written')
-                    #time.sleep(5)
+            for box in row:
+                if box != '\n' and box.a != None:
+                    print('Writing ' + box.a['href'].split('/')[-1])
+                    pageScraper('https://attack.mitre.org'+box.a['href']).build()
+                    c+=1
+                    print('page '+str(c)+' written')
+                    time.sleep(5)
 webScraper()
