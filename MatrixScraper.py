@@ -11,7 +11,7 @@ class pageScraper:
         self.page = requests.get(page)
         self.soup = BeautifulSoup(self.page.text, 'html.parser')       
         self.pageName = self.soup.h1.get_text().strip()
-        self.outputSoup = BeautifulSoup(open('source2.html','rb'),'html.parser')
+        self.outputSoup = BeautifulSoup(open('template.html','rb'),'html.parser')
     
     
     def cardScraper(self):
