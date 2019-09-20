@@ -118,7 +118,7 @@ class pageScraper:
         os.system('echo \'</ac:layout>\' >> \''+fileName+'\'') #dirty hack - please ignore
 
 def webScraper():
-    soup = BeautifulSoup(open('windows','rb'), 'html.parser')       
+    soup = BeautifulSoup(open('windows_vectors.html','rb'), 'html.parser')       
     c = 0
     for row in soup.tbody.children:
         if row != '\n':
